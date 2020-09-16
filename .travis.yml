@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t mohsen-mehrabani/docker-react -f Dockerfile.dev
+
+script:
+  - docker run mohsen-mehrabani/docker-react npm run test -- --coverage

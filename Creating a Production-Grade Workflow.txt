@@ -1,0 +1,66 @@
+install nodejs locally and then we'll use two container for developing and production.
+
+#systeminformation
+cat /etc/os-release 
+#   This provides the 'ss' command which is IMHO a 'better' version of netstat.
+apk add iproute2 
+
+
+
+node-v # test the nodejs version
+#ubuntu
+apt-cache search nodejs npm
+#alpine
+apk search npm
+apk add --update nodejs npm
+
+npm install -g create-react-app
+
+# in the directory you want 
+
+create-react-app frontend
+
+npm run test
+npm run build
+npm run start
+
+# We configured the installing nodejs locally
+# Let go to configure the containers
+
+# Create the DOckerfile.dev for the first container
+# Thedevelopment container
+
+forntend directory
+docker build -f Dockerfile.dev .
+
+# and then delete node_modules on the local becasue we have it on docker and local and it'll raised a duplication
+# in this senario and you need to rebuild the image 
+
+docker build -f Dockerfile.dev .
+
+docker run -d or -rm tag won't work. I don't know why   
+docker run -it -p 3000:3000 
+
+# this command will fix your vscode permission problem
+sudo chown -R mohsen frontend/
+sudo chmod -R +x frontend/
+
+docker run -it -p 3000:3000 -v /app/node_modules -v $(pwd):/app imagename
+
+# Recently, a bug was introduced with the latest Create React App version that is causing the React app to exit when starting with Docker Compose.
+# To Resolve this:
+#Add stdin_open property to your docker-compose.yml file
+
+  web:
+    stdin_open: true
+
+# Make sure you rebuild your containers after making this change with  docker-compose down && docker-compose up --build
+
+docker run -it  6279e7f7c4f6 npm run test
+
+# For having the test container along with the web container we built the new docker-compose.yml file
+
+# use nginx for this case 
+#Dockerfile is prepared 
+docker build .
+docker run imageID
