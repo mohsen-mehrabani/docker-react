@@ -64,3 +64,18 @@ docker run -it  6279e7f7c4f6 npm run test
 #Dockerfile is prepared 
 docker build .
 docker run imageID
+
+#Github 
+
+#Push
+git init 
+git add .
+git config user.email "email address"
+git commit -m "Initial commit"
+git remote add origin Github repository Url 
+git push origin master
+
+#pull
+git init
+git remote add origin github repository Url
+git pull origin master
